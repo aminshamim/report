@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arogga × Union Digital Centers — 12‑Month Expansion Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --bg:#ffffff; --surface:#ffffff; --muted:#475569; --text:#0f172a;
+      --brand:#2563eb; /* blue-600 */
+      --brand-2:#7c3aed; /* violet-600 */
+      --accent:#8b5cf6; /* violet-500 */
+      --ring:#e6e9f5; --line:#e5e7eb;
+      --shadow:0 16px 50px rgba(2,6,23,.08);
+      --radius:18px; --radius-lg:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif; color:var(--text); line-height:1.65;
+      background:
+        radial-gradient(1200px 800px at 90% -10%, rgba(37,99,235,.10), transparent 60%),
+        radial-gradient(1000px 700px at 10% -20%, rgba(124,58,237,.10), transparent 60%),
+        var(--bg);
+    }
+    /* Topbar */
+    .topbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+      background:rgba(255,255,255,.7); border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1200px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+    .brand-badge{width:28px; height:28px; border-radius:9px; background:conic-gradient(from 160deg, var(--brand), var(--brand-2)); box-shadow:0 6px 16px rgba(37,99,235,.25)}
+    .chipnav{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; font-size:12px; cursor:pointer}
+
+    .container{max-width:1200px; margin:0 auto; padding:28px 20px 80px}
+
+    /* Hero */
+    .hero{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius-lg);
+      background:linear-gradient(135deg, rgba(37,99,235,.08), rgba(124,58,237,.06)); padding:46px 34px; box-shadow:var(--shadow)}
+    .hero h1{margin:0; font-family:Montserrat, Inter, sans-serif; font-weight:800; font-size:clamp(30px,5vw,48px)}
+    .hero p{margin:12px 0 0; color:var(--muted); font-size:clamp(14px,2.2vw,18px)}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{cursor:pointer; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#fff; font-weight:800; border:none; border-radius:999px; padding:10px 16px; box-shadow:var(--shadow)}
+    .btn.secondary{background:#fff; color:#1e293b; border:1px solid var(--line)}
+
+    /* Section */
+    .section{margin-top:26px}
+    .section-title{display:flex; align-items:center; gap:10px; margin:0 0 12px; font-weight:800; letter-spacing:.2px}
+    .section-title .dot{width:10px; height:10px; border-radius:999px; background:linear-gradient(135deg, var(--brand), var(--brand-2))}
+
+    .grid{display:grid; gap:18px}
+    @media(min-width: 980px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-2{grid-template-columns:repeat(2,1fr)} }
+
+    /* Cards */
+    .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px 20px; box-shadow:var(--shadow)}
+    .card h3{margin:0 0 10px; font-size:18px; font-weight:700}
+    .sub{color:var(--muted); font-size:14px}
+
+    /* Modern Stat Rail */
+    .stat-rail{display:grid; gap:16px}
+    @media(min-width:980px){ .stat-rail{grid-template-columns:repeat(4,1fr)} }
+    .stat{
+      position:relative; padding:18px; border-radius:16px; background:#fff; border:1px solid var(--line);
+      box-shadow:0 10px 30px rgba(2,6,23,.06)
+    }
+    .stat::after{content:""; position:absolute; inset:0; border-radius:16px; padding:1px; background:linear-gradient(135deg, rgba(37,99,235,.35), rgba(124,58,237,.35)); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude}
+    .stat .label{color:#64748b; font-size:12px; text-transform:uppercase; letter-spacing:.6px}
+    .stat .val{font-weight:800; font-size:clamp(22px,4vw,32px); margin-top:6px}
+    .stat .subval{color:#475569; font-size:13px; margin-top:4px}
+
+    /* UDC + Proof */
+    .pill{display:inline-flex; align-items:center; gap:8px; background:#eef2ff; border:1px solid #e0e7ff; color:#1e3a8a; border-radius:999px; padding:6px 10px; font-size:12px}
+    .list{margin:10px 0 0; padding:0 0 0 16px}
+    .list li{margin:8px 0}
+    .list.small li{font-size:13px; color:#0f172a}
+    .note{margin-top:12px; background:#f5f3ff; border:1px solid #ede9fe; border-radius:12px; padding:12px 14px}
+    .note h4{margin:0 0 6px; color:#6d28d9; font-size:14px}
+
+    /* Timeline */
+    .timeline{position:relative; padding-left:24px}
+    .timeline::before{content:""; position:absolute; left:10px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--brand), transparent)}
+    .tl{position:relative; margin:12px 0; padding:10px 14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px}
+    .tl::before{content:""; position:absolute; left:-19px; top:14px; width:10px; height:10px; border-radius:999px; background:var(--brand); box-shadow:0 0 0 3px rgba(37,99,235,.20)}
+
+    /* Tables */
+    .table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:14px; border:1px solid var(--line)}
+    .table thead th{background:#f8fafc; padding:12px 10px; text-align:left; font-size:13px; color:#334155}
+    .table tbody td{padding:12px 10px; border-top:1px solid #e5e7eb; font-size:14px; color:#0f172a}
+
+    .hr{height:1px; margin:28px 0; background:linear-gradient(90deg, transparent, rgba(2,6,23,.12), transparent)}
+    footer{margin-top:36px; color:#64748b; font-size:12px; text-align:center}
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease}
+    .reveal.show{opacity:1; transform:none}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-badge"></span> Arogga × UDC Expansion</div>
+    <div class="chipnav">
+      <a class="chip" href="#about">About UDC</a>
+      <a class="chip" href="#kpis">KPIs</a>
+      <a class="chip" href="#plan">Plan</a>
+      <a class="chip" href="#projections">Projections</a>
+      <a class="chip" href="#risks">Risks</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section class="hero reveal">
+    <span class="badge">Arogga × UDC (UISC) • 12‑Month Expansion Plan</span>
+    <h1>Healthcare at the Village Doorstep</h1>
+    <p>Partnering with Union Digital Centers to deliver authentic medicines, tele‑consultations, diagnostics, and health products across rural Bangladesh—scaling access while building a sustainable growth engine.</p>
+    <div class="cta">
+      <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+      <a class="btn secondary" href="#projections">Jump to Projections</a>
+    </div>
+  </section>
+
+  <div class="section" id="about">
+    <h2 class="section-title"><span class="dot"></span> What are UDCs (UISCs)?</h2>
+    <div class="grid cols-2 reveal">
+      <div class="card">
+        <p class="sub">UDCs are government‑backed, entrepreneur‑run digital service hubs in nearly every union (≈4,500+), offering trusted, affordable access to e‑services. They provide the perfect last‑mile for health services.</p>
+        <ul class="list">
+          <li><span class="pill">Coverage</span> Presence in almost every union; deep community trust</li>
+          <li><span class="pill">Infra</span> PCs, internet, printer, webcam; run by trained entrepreneurs</li>
+          <li><span class="pill">Proven model</span> Enabled agent banking, e‑gov, and mobile payments at scale</li>
+        </ul>
+        <div class="note" style="margin-top:14px">
+          <h4>Bank Asia — Proof at Scale</h4>
+          <ul class="list small">
+            <li><b>5,000+</b> rural agent outlets via UDCs</li>
+            <li><b>7.3M</b> agent accounts; <b>64%</b> women; <b>91%</b> rural</li>
+            <li>~<b>Tk 6,000 crore</b> deposits; <b>3.5M</b> G2P beneficiaries</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Strategic Offerings via UDC</h3>
+        <ul class="list">
+          <li><b>Prescription Delivery:</b> Order & pickup authentic meds at the UDC</li>
+          <li><b>Telemedicine:</b> Doctor video consults with UDC facilitation</li>
+          <li><b>Diagnostics Access:</b> Book tests; sample collection camps</li>
+          <li><b>Health Products:</b> OTC, hygiene, mother & child care items</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="kpis">
+    <h2 class="section-title"><span class="dot"></span> Year‑1 KPIs at a Glance</h2>
+    <div class="stat-rail reveal">
+      <div class="stat">
+        <div class="label">Year‑End Active UDCs</div>
+        <div class="val">1,000</div>
+        <div class="subval">~25% of all unions</div>
+      </div>
+      <div class="stat">
+        <div class="label">Month‑12 Customers</div>
+        <div class="val">~29,000</div>
+        <div class="subval">Monthly interactions</div>
+      </div>
+      <div class="stat">
+        <div class="label">Month‑12 Revenue (Gross)</div>
+        <div class="val">BDT 23.8M</div>
+        <div class="subval">≈$220k equivalent</div>
+      </div>
+      <div class="stat">
+        <div class="label">Year‑1 Revenue (Gross)</div>
+        <div class="val">BDT 118.9M</div>
+        <div class="subval">Net ≈ 15% of gross</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="plan">
+    <h2 class="section-title"><span class="dot"></span> Implementation Blueprint & Rollout</h2>
+    <div class="grid cols-2 reveal">
+      <div class="card">
+        <h3>Implementation Blueprint</h3>
+        <ol class="list">
+          <li><b>MoU & Alignment:</b> Sign with a2i; onboard UDC & Union leaders.</li>
+          <li><b>Agent Portal:</b> Lightweight UDC web/app for orders, consults, tracking.</li>
+          <li><b>Training & SOPs:</b> Pharmacovigilance, privacy, triage, device basics.</li>
+          <li><b>Infra Check:</b> Webcam, headset, privacy partition; mini cooler for cold‑chain.</li>
+          <li><b>Workflows:</b> eRx verification → dispatch → UDC pickup; consult slots; lab camps.</li>
+          <li><b>Logistics Hubs:</b> District hubs + milk‑run routes to UDCs (≤48h delivery).</li>
+          <li><b>Data & QA:</b> Dashboards, SLAs, audits; agent incentives + coaching.</li>
+          <li><b>Community Outreach:</b> Market‑day demos, imam/school info, success stories.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>12‑Month Rollout (Phased)</h3>
+        <div class="timeline">
+          <div class="tl"><b>Phase 1 (M1–M3): 50–100 UDCs</b><br/> Pilot 1–2 districts; refine ops; early marketing.</div>
+          <div class="tl"><b>Phase 2 (M4–M6): 200–400 UDCs</b><br/> Expand to 4–5 districts; add hubs; steady demand.</div>
+          <div class="tl"><b>Phase 3 (M7–M9): 600–800 UDCs</b><br/> Accelerate onboarding; optimize supply chain.</div>
+          <div class="tl"><b>Phase 4 (M10–M12): 1,000 UDCs</b><br/> Consolidate quality; prep all‑union scale‑up.</div>
+        </div>
+        <p class="sub" style="margin-top:10px">Total setup & scale costs ≈ BDT 10–12M (platform, training, outreach, initial logistics). Variable delivery costs recovered via fees.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="projections">
+    <h2 class="section-title"><span class="dot"></span> Projections — Volumes & Revenue</h2>
+    <div class="grid cols-2 reveal">
+      <div class="card">
+        <h3>Monthly Service Volumes</h3>
+        <p class="sub">Customers served, prescriptions fulfilled, tele‑consultations (M1 → M12).</p>
+        <canvas id="volumesChart" height="220" aria-label="Volume chart showing growth in customers, prescriptions and teleconsultations"></canvas>
+      </div>
+      <div class="card">
+        <h3>Revenue Trajectory (Gross BDT Millions)</h3>
+        <p class="sub">Monthly vs cumulative revenue; net ≈ 15% of gross (after COGS, doctors, UDC commissions).</p>
+        <canvas id="revenueChart" height="220" aria-label="Revenue chart showing monthly and cumulative totals in BDT millions"></canvas>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3>12‑Month Projection Table</h3>
+      <div style="overflow:auto">
+        <table class="table" role="table" aria-label="Projection table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Cumulative UDCs</th>
+              <th>Customers (Monthly)</th>
+              <th>Prescriptions</th>
+              <th>Tele‑consults</th>
+              <th>Revenue (BDT M)</th>
+              <th>Cumulative (BDT M)</th>
+            </tr>
+          </thead>
+          <tbody id="proj-body"></tbody>
+        </table>
+      </div>
+      <p class="sub" style="margin-top:8px">Assumptions: avg Rx basket ≈ BDT 1,000; consult fee ≈ BDT 100; conservative adoption (~3–4% of typical UDC monthly footfall).</p>
+    </div>
+  </div>
+
+  <div class="section" id="risks">
+    <h2 class="section-title"><span class="dot"></span> Risks & Mitigations</h2>
+    <div class="grid cols-3 reveal">
+      <div class="card">
+        <h3>Key Risks</h3>
+        <ul class="list">
+          <li><b>Adoption lag:</b> Rural trust & awareness build‑up takes time.</li>
+          <li><b>Supply variance:</b> Cold‑chain & stockouts in remote areas.</li>
+          <li><b>Process drift:</b> Inconsistent SOPs across entrepreneurs.</li>
+          <li><b>Connectivity:</b> Unreliable internet/power in some unions.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Mitigations</h3>
+        <ul class="list">
+          <li>Local champions, market‑day demos, testimonial loops.</li>
+          <li>District hubs, insulated packs, reorder thresholds, alternates.</li>
+          <li>Certification, audits, coaching, incentives for SLA adherence.</li>
+          <li>Offline queuing, SMS fallbacks, solar/UPS at UDCs.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>12‑Month Outcomes</h3>
+        <ul class="list">
+          <li>~<b>148k</b> total customer interactions in Year 1</li>
+          <li>~<b>116k</b> prescriptions delivered; ~<b>29k</b> tele‑consults</li>
+          <li>~<b>BDT 118.9M</b> gross revenue; net ≈ 15%</li>
+          <li>Brand presence in <b>1,000 unions</b>; ready to scale nationwide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>© Arogga — UDC (UISC) Rural Health Access Program • Draft presentation</footer>
+</div>
+
+  <script>
+    // --- Data ---
+    const months = [1,2,3,4,5,6,7,8,9,10,11,12].map(m=>`M${m}`);
+    const cumulativeUDCs = [50,50,100,200,300,400,600,800,1000,1000,1000,1000];
+    const customers = [500,750,1500,3000,5000,7250,11000,15500,20500,24000,27000,29000];
+    const prescriptions = [400,600,1200,2400,4000,5800,8800,12400,16400,19200,21600,23200];
+    const tele = [100,150,300,600,1000,1450,2200,3100,4100,4800,5400,5800];
+    const revenueM = [0.41,0.62,1.23,2.46,4.10,5.95,9.02,12.71,16.81,19.68,22.14,23.78];
+
+    const cumulativeRevenueM = revenueM.reduce((acc,v,i)=>{ acc.push((acc[i-1]||0)+v); return acc; },[]);
+
+    // --- Table render ---
+    const tbody = document.getElementById('proj-body');
+    months.forEach((m,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${m}</td>
+        <td>${cumulativeUDCs[i].toLocaleString()}</td>
+        <td>${customers[i].toLocaleString()}</td>
+        <td>${prescriptions[i].toLocaleString()}</td>
+        <td>${tele[i].toLocaleString()}</td>
+        <td>${revenueM[i].toFixed(2)}</td>
+        <td>${cumulativeRevenueM[i].toFixed(2)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // --- Charts ---
+    const baseGrid = {
+      color: 'rgba(148,163,184,.25)',
+      borderDash: [4,4]
+    };
+    const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text') || '#e5e7eb';
+    const brand = getComputedStyle(document.documentElement).getPropertyValue('--brand') || '#22c55e';
+    const cyan = getComputedStyle(document.documentElement).getPropertyValue('--brand-2') || '#06b6d4';
+    const amber = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#f59e0b';
+
+    // Volumes
+    const ctx1 = document.getElementById('volumesChart');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {label:'Customers', data: customers, tension:.35, borderColor: brand, backgroundColor: 'rgba(37,99,235,.15)', fill:true, pointRadius: 2},
+          {label:'Prescriptions', data: prescriptions, tension:.35, borderColor: cyan, backgroundColor: 'rgba(124,58,237,.15)', fill:true, pointRadius: 2},
+          {label:'Tele‑consults', data: tele, tension:.35, borderColor: amber, backgroundColor: 'rgba(147,51,234,.12)', fill:true, pointRadius: 2}
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: textColor } },
+          tooltip: { mode:'index', intersect:false }
+        },
+        scales: {
+          x: { grid: baseGrid, ticks:{ color: textColor } },
+          y: { grid: baseGrid, ticks:{ color: textColor } }
+        }
+      }
+    });
+
+    // Revenue
+    const ctx2 = document.getElementById('revenueChart');
+    new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {label:'Monthly (BDT M)', data: revenueM, tension:.35, borderColor: cyan, backgroundColor: 'rgba(37,99,235,.12)', fill:true, pointRadius: 2},
+          {label:'Cumulative (BDT M)', data: cumulativeRevenueM, tension:.35, borderColor: brand, backgroundColor: 'rgba(124,58,237,.12)', fill:true, pointRadius: 2}
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: textColor } },
+          tooltip: { mode:'index', intersect:false }
+        },
+        scales: {
+          x: { grid: baseGrid, ticks:{ color: textColor } },
+          y: { grid: baseGrid, ticks:{ color: textColor } }
+        }
+      }
+    });
+  </script>
+<script>
+  // Animate KPI progress bars
+  document.querySelectorAll('.kv-bar span').forEach((el)=>{
+    const p = parseFloat(el.dataset.progress || '100');
+    el.style.width = '0%';
+    el.style.transition = 'width .9s ease';
+    requestAnimationFrame(()=>{ el.style.width = Math.max(0, Math.min(100, p)) + '%'; });
+  });
+</script>
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
